@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- PWA / Home Screen meta -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eat to Fuel">
+<meta name="theme-color" content="#0d0f0d">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAANEElEQVR4nO3czXHcxgJG0aFKQWijUiAOQDE7AAXi8sZBuEpeuGiPKIqcPwDdfc8JwALw+Phd9Iz0dGIzn798+n70NQDM7M8//no6+hpW5cHeycgDHEMc3MfDu4KxBxibKLicB/UGgw8wN0Hwax7MGYMPsDZB8L/8gzD6AE31GMjevOEH4HTqhkDqpo0+AG8pxUDiRg0/ANcohMDSN2j4AbjHyiGw5I0ZfgAeacUQWOqGDD8AW1opBJa4EcMPwJ5WCIGpb8DwA3CkmUPgw9EXcCvjD8DRZt6i6cpl5ocNwLpmOw2Y6gTA+AMwqtk2aopame2hAtA2w2nA8CcAxh+A2cywXUMHwAwPEABeM/qGDXlEMfpDA4BrjPiRwHAnAMYfgNWMuG1DBcCIDwgAHmG0jRsmAEZ7MADwaCNt3eGfSYz0MABgL0d/L+DQEwDjD0DV0Rt4WAAcfeMAcLQjt/CQADD+APCvozZx9wAw/gDwoyO2cdcAMP4A8Lq9N3K3ADD+APC2PbdylwAw/gBwmb02c/MAMP4AcJ09tnOYfwkQANjPpgHg7R8AbrP1hm4WAMYfAO6z5ZZuEgDGHwAeY6tNfXgAGH8AeKwtttWXAAEg6KEB4O0fALbx6I19WAAYfwDY1iO39iEBYPwBYB+P2lzfAQCAoLsDwNs/AOzrEdt7VwAYfwA4xr0b7CMAAAi6OQC8/QPAse7Z4psCwPgDwBhu3WQfAQBA0NUB4O0fAMZyyzY7AQCAoKsCwNs/AIzp2o12AgAAQRcHgLd/ABjbNVvtBAAAgi4KAG//ADCHSzfbCQAABL0bAN7+AWAul2y3EwAACHozALz9A8Cc3ttwJwAAECQAACDolwHg+B8A5vbWljsBAICgVwPA2z8ArOFXm+4EAACCBAAABP0UAI7/AWAtr227EwAACBIAABAkAAAg6IcA8Pk/AKzp5cY7AQCAIAEAAEECAACC/gsAn/8DwNrOt94JAAAECQAACBIAABAkAAAg6MPp5AuAAFDxvPlOAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAEPfkrgADQ4wQAAIIEAAAEfTz6AmAk376+/3+J337/e4cr2Yb7m/v+4JF8BwBOlw3HSzMNifv72Uz3B1sQAKTdMhwvjTwk7u99I98fbEkAkPSI4XhppCFxf9cb6f5gD74ESM4W47Hlf/da7m+s/y6MSgCQsvUv+aNHxP2N/d+HkQgAMvb65X7UiLi/uf4cOJoAIGHvX+r+PH8ejE4AAECQAGB5jqzn/nNXvz84igAAgCABwNKOfotb/Vvr7g/mJQAAIEgAsKxR3t5W/4dr3B/MSQAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQNDHoy8ACr59Xfv/aqvfH6zICQAABAkAAAgSAAAQJAAAIEgAAECQAACAIAEAAEECAACCBAAABAkAAAgSAAAQJAAAIEgAAECQAACAIAEAAEECAACCBAAABAkAAAgSAAAQJAAAIEgAAECQAACAIAEAAEECAACCBAAABAkAAAgSAAAQJAAAIEgAAECQAACAIAEAAEECAACCBAAABAkAAAgSAAAQJAAAIEgAAECQAACAIAEAAEECAACCBAAABAkAAAgSACzrt9//PvoSWICfI1YlAAAgSACwNG9v3MPPDysTAAAQJABYnrc4buHnhtUJAAAIEgAkeJvjGn5eKBAAZPilziX8nFAhAAAgSACQ4u2Ot/j5oEQAkOOXPK/xc0GNACDJL3vO+XmgSACQ5Zc+p5OfA7qePn/59P3oi4Cjffv68ehLYGeGnzonAHAyBjX+9wYnAPATpwHrMvzwPwEAvyAE1mH44WcCAC4kCOZh8OF9AgAmMkOEGF+Ygy8BAkCQAIBJzPD2fzrNc51QJwAAIEgAwARme6ue7XqhSAAAQJAAAIAgAQAAQQIABjfr5+mzXjdUCAAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQCD++33v4++hJvMet1QIQAAIEgAAECQAACAIAEAE5jt8/TZrheKBAAABAkAmMQsb9WzXCfUCQAACBIAMJHR365Hvz7gfwIAJjPqyI56XcDrBABMaLSxHe16gPcJAAAIEgAwqVHeuke5DuA6T5+/fPp+9EUA9/n29ePuf6bhh7k5AYAF7D3Gxh/mJwBgEXuNsvGHNfgIABa0xUcChh/WIgBgYY8IAcMPaxIAEHJJEBh8aBAAABDkS4AAEPThzz/+ejr6IgCA/fz5x19PTgAAIEgAAECQAACAIAEAAEECAACCBAAABH04nf796wBHXwgAsL3nzXcCAABBAgAAggQAAAQJAAAI+i8AfBEQANZ2vvVOAAAgSAAAQJAAAICgHwLA9wAAYE0vN94JAAAECQAACBIAABD0UwD4HgAArOW1bXcCAABBAgAAgl4NAB8DAMAafrXpTgAAIOiXAeAUAADm9taWOwEAgCABAABBbwaAjwEAYE7vbbgTAAAIejcAnAIAwFwu2W4nAAAQdFEAOAUAgDlcutlOAAAg6OIAcAoAAGO7ZqudAABA0FUB4BQAAMZ07UY7AQCAoKsDwCkAAIzllm12AgAAQTcFgFMAABjDrZt88wmACACAY92zxT4CAICguwLAKQAAHOPeDb77BEAEAMC+HrG9PgIAgKCHBIBTAADYx6M292EnACIAALb1yK196EcAIgAAtvHojfUdAAAIengAOAUAgMfaYls3OQEQAQDwGFtt6mYfAYgAALjPllu66XcARAAA3GbrDfUlQAAI2jwAnAIAwHX22M5dTgBEAABcZq/N3O0jABEAAG/bcyt3/Q6ACACA1+29kbt/CVAEAMCPjtjGQ/4WgAgAgH8dtYmH/TVAEQBA3ZFbeOi/AyACAKg6egOHGeDPXz59P/oaAGBrRw//s2H+JcBRHggAbGWkrRsmAE6nsR4MADzSaBs3VACcTuM9IAC414jbNtwFnfO9AABmNuLwPxvuBODcyA8OAN4y+oYNHQCn0/gPEABemmG7hr/Acz4SAGBkMwz/s+FPAM7N9GABaJlto6a62HNOAwAYwWzD/2yqE4Bzsz5wANYx8xZNe+HnnAYAsKeZh//Z9DdwTggAsKUVhv/ZMjdyTggA8EgrDf+z5W7onBAA4B4rDv+zZW/snBAA4BorD/+z5W/wnBAA4C2F4X+WudGXxAAAp1Nr9M8lb/qcEABoqg7/s/TNvyQGANZWH/1zHsQbBAHA3Az+r3kwVxAEAGMz+JfzoO4kCgCOYezv4+FtSBwA3MfIb+cfqFKVlrR8ugQAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+
+<title>EAT TO FUEL — PERFORMANCE NUTRITION CYCLE 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f0d;
+    --panel: #151815;
+    --panel-border: #262b26;
+    --gold: #c9a227;
+    --blue: #3d7a9e;
+    --green: #4a7c4e;
+    --orange: #e2661c;
+    --text: #e8e6df;
+    --text-dim: #8a8d87;
+    --text-faint: #565952;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+  }
+  .header {
+    padding: calc(28px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 20px calc(20px + env(safe-area-inset-left));
+    border-bottom: 2px solid var(--panel-border);
+    background: linear-gradient(180deg, #12140f 0%, var(--bg) 100%);
+    position: relative;
+  }
+  .header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-right: 90px;
+  }
+  .header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .header-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+  .day-total {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 3px solid var(--gold);
+  }
+  .day-total .stat { font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+  .day-total .stat .num { color: var(--gold); font-weight: 500; }
+
+  .phase-toggle {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .phase-btn {
+    flex: 1;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 8px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .phase-btn.active {
+    color: var(--orange);
+    border-color: var(--orange);
+    background: rgba(226,102,28,0.08);
+  }
+  .phase-btn .sub {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text-faint);
+    margin-top: 2px;
+    text-transform: none;
+  }
+  [data-phase-only] { display: none; }
+
+  .save-badge {
+    position: absolute;
+    top: calc(14px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 5px 9px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .save-badge.ok { background: rgba(74,124,78,0.18); color: #7bc47f; border: 1px solid #3a5c3d; }
+  .save-badge.bad { background: rgba(180,60,50,0.18); color: #e08880; border: 1px solid #7a3a34; }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--panel-border);
+    background: #0f110f;
+    -webkit-overflow-scrolling: touch;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  .tab {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    color: var(--text-faint);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    flex-shrink: 0;
+  }
+  .tab.active { color: var(--text); }
+  .tab[data-accent="gold"].active { border-bottom-color: var(--gold); color: var(--gold); }
+  .tab[data-accent="blue"].active { border-bottom-color: var(--blue); color: var(--blue); }
+  .tab[data-accent="green"].active { border-bottom-color: var(--green); color: var(--green); }
+  .tab[data-accent="orange"].active { border-bottom-color: var(--orange); color: var(--orange); }
+
+  .content {
+    padding: 20px calc(16px + env(safe-area-inset-right)) 60px calc(16px + env(safe-area-inset-left));
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .recipe { display: none; }
+  .recipe.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .recipe-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .recipe-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .macro-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--panel-border);
+    border: 1px solid var(--panel-border);
+    margin-bottom: 20px;
+  }
+  .macro-cell {
+    background: var(--panel);
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .macro-cell .val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .macro-cell .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .ingredient-list { list-style: none; }
+  .ingredient-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #1c1f1c;
+    font-size: 14px;
+  }
+  .ingredient-list li .amt {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-dim);
+    font-size: 13px;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .steps { list-style: none; counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 4px 0 16px 34px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .note-box {
+    margin-top: 20px;
+    padding: 12px 14px;
+    background: #14160f;
+    border-left: 3px solid var(--blue);
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .shop-section { margin-bottom: 24px; }
+  .shop-list { list-style: none; }
+  .shop-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #1c1f1c;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .shop-list li .box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--text-faint);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--bg);
+  }
+  .shop-list li.checked .box { background: var(--gold); border-color: var(--gold); }
+  .shop-list li.checked .box::after { content: "\2713"; }
+  .shop-list li.checked .item-name { color: var(--text-faint); text-decoration: line-through; }
+  .shop-list li .item-name { flex: 1; }
+  .shop-list li .item-qty {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--gold);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .shop-list li .item-note {
+    display: block;
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  .backup-btn {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 10px;
+  }
+  .backup-btn:active { background: var(--panel-border); }
+  .backup-btn.primary { border-color: var(--gold); color: var(--gold); }
+  textarea.backup-area {
+    width: 100%;
+    min-height: 140px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 10px;
+    margin-top: 10px;
+    resize: vertical;
+  }
+  .backup-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    margin-top: 10px;
+    color: var(--text-dim);
+  }
+  .backup-status.ok { color: #7bc47f; }
+  .backup-status.bad { color: #e08880; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="save-badge" id="saveBadge">CHECKING...</div>
+  <div class="header-eyebrow">Performance Nutrition · Cycle 1 · Wk 1 (Aug 31)</div>
+  <h1>Eat to Fuel</h1>
+  <div class="header-sub" id="headerSub">2,800 kcal target (food only — coffee tracked separately) · 6 days on, Sunday fast + cheat meal</div>
+  <div class="day-total" id="dayTotal">
+    <div class="stat"><span class="num" id="totKcal">2,644</span> kcal</div>
+    <div class="stat"><span class="num" id="totProtein">191</span>g protein</div>
+    <div class="stat"><span class="num" id="totFat">61</span>g fat</div>
+    <div class="stat"><span class="num" id="totCarb">322</span>g carb</div>
+  </div>
+  <div class="phase-toggle">
+    <div class="phase-btn active" data-phase="1" id="phase1Btn">Phase 1<span class="sub">Weeks 1–2 · 2,800 kcal</span></div>
+    <div class="phase-btn" data-phase="2" id="phase2Btn">Phase 2<span class="sub">Weeks 3–4 · 2,950 kcal</span></div>
+  </div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-accent="green" data-target="breakfast">Breakfast</div>
+  <div class="tab" data-accent="gold" data-target="lunch">Lunch</div>
+  <div class="tab" data-accent="blue" data-target="dinner">Dinner</div>
+  <div class="tab" data-accent="blue" data-target="fries">Fries Prep</div>
+  <div class="tab" data-accent="gold" data-target="snack">Snack</div>
+  <div class="tab" data-accent="orange" data-target="treat" data-phase-only="2" id="treatTab">Treat</div>
+  <div class="tab" data-accent="green" data-target="shopping">Shopping List</div>
+  <div class="tab" data-accent="orange" data-target="backup">Backup</div>
+</div>
+
+<div class="content">
+
+  <!-- BREAKFAST -->
+  <div class="recipe active" id="breakfast">
+    <div class="recipe-title">Cottage Cheese &amp; Ghost Protein Oats</div>
+    <div class="recipe-desc">Sweetened + crunch version. 3-day batch prep — mix once, portion into 3 jars.</div>
+    <div class="macro-bar">
+      <div class="macro-cell"><div class="val">712</div><div class="lbl">Kcal/serve</div></div>
+      <div class="macro-cell"><div class="val">50g</div><div class="lbl">Protein</div></div>
+      <div class="macro-cell"><div class="val">10g</div><div class="lbl">Fat</div></div>
+      <div class="macro-cell"><div class="val">106g</div><div class="lbl">Carb</div></div>
+    </div>
+    <div class="section-label">Ingredients — Full Batch (3 servings)</div>
+    <ul class="ingredient-list">
+      <li>Rolled oats <span class="amt">195 g</span></li>
+      <li>Low-fat cottage cheese <span class="amt">300 g</span></li>
+      <li>Ghost Whey Protein, Cookies &amp; Cream <span class="amt">3 scoops</span></li>
+      <li>Skim milk <span class="amt">300 g</span></li>
+      <li>Frozen blueberries <span class="amt">120 g</span></li>
+      <li>Honey <span class="amt">6 tbsp</span></li>
+      <li>Arnott's Marie biscuits, crumbled <span class="amt">48 g</span></li>
+    </ul>
+    <div class="section-label">Method</div>
+    <ol class="steps">
+      <li><span class="step-title">Blend the cottage cheese</span>Blend cottage cheese until smooth.</li>
+      <li><span class="step-title">Combine the base mix</span>In a large bowl or jug, combine oats, blended cottage cheese, protein powder, milk and honey. Mix thoroughly until the protein powder is fully dissolved and there are no oat clumps.</li>
+      <li><span class="step-title">Portion into 3 jars</span>Divide the mixture evenly across 3 jars or containers.</li>
+      <li><span class="step-title">Add blueberries</span>Top each jar with blueberries, split evenly.</li>
+      <li><span class="step-title">Chill</span>Cover and refrigerate. Best eaten within 3 days; stir before eating as it may separate slightly.</li>
+      <li><span class="step-title">Add biscuit crumbs</span>Just before eating each serve, crumble Marie biscuits over the top for crunch — keep them separate until serving so they stay crisp.</li>
+    </ol>
+  </div>
+
+  <!-- LUNCH -->
+  <div class="recipe" id="lunch">
+    <div class="recipe-title">Beef Bulgogi Rice Bowl</div>
+    <div class="recipe-desc">Batch of 6. Per-serve macros shown. Mince rounded to 1.5kg total (250g/serve) for clean 500g pack multiples.</div>
+    <div class="macro-bar">
+      <div class="macro-cell"><div class="val">735</div><div class="lbl">Kcal</div></div>
+      <div class="macro-cell"><div class="val">63g</div><div class="lbl">Protein</div></div>
+      <div class="macro-cell"><div class="val">18g</div><div class="lbl">Fat</div></div>
+      <div class="macro-cell"><div class="val">73g</div><div class="lbl">Carb</div></div>
+    </div>
+    <div class="section-label">Ingredients — Full Batch (6 serves)</div>
+    <ul class="ingredient-list">
+      <li>Lean beef mince (5% fat) <span class="amt">1.5 kg</span></li>
+      <li>Basmati rice, dry <span class="amt">360 g</span></li>
+      <li>Capsicum, diced <span class="amt">300 g</span></li>
+      <li>Onion, diced <span class="amt">300 g</span></li>
+      <li>Soy sauce <span class="amt">6 tbsp</span></li>
+      <li>Sesame oil <span class="amt">30 g</span></li>
+      <li>Gochujang <span class="amt">6 tbsp</span></li>
+      <li>Garlic cloves <span class="amt">12</span></li>
+      <li>Ginger, grated <span class="amt">60 g</span></li>
+      <li>Mirin <span class="amt">6 tbsp</span></li>
+    </ul>
+    <div class="section-label">Method</div>
+    <ol class="steps">
+      <li><span class="step-title">Cook the rice</span>Cook basmati rice according to packet instructions. Set aside.</li>
+      <li><span class="step-title">Brown the mince</span>Brown beef mince in a large pan over high heat, breaking it up as it cooks.</li>
+      <li><span class="step-title">Add aromatics and veg</span>Add garlic, ginger, capsicum and onion. Cook until softened.</li>
+      <li><span class="step-title">Add the sauce</span>Stir in soy sauce, sesame oil, gochujang and mirin. Simmer until the sauce coats everything and thickens slightly.</li>
+      <li><span class="step-title">Portion into containers</span>Divide rice and bulgogi mince evenly across 6 containers.</li>
+    </ol>
+  </div>
+
+  <!-- DINNER -->
+  <div class="recipe" id="dinner">
+    <div class="recipe-title">Smashed Burger &amp; Air-Fried Fries</div>
+    <div class="recipe-desc">Single serve. Fries air-fried with no oil.</div>
+    <div class="macro-bar">
+      <div class="macro-cell"><div class="val">917</div><div class="lbl">Kcal</div></div>
+      <div class="macro-cell"><div class="val">74g</div><div class="lbl">Protein</div></div>
+      <div class="macro-cell"><div class="val">22g</div><div class="lbl">Fat</div></div>
+      <div class="macro-cell"><div class="val">101g</div><div class="lbl">Carb</div></div>
+    </div>
+    <div class="section-label">Ingredients</div>
+    <ul class="ingredient-list">
+      <li>Lean beef mince (5% fat) <span class="amt">250 g</span></li>
+      <li>Tip Top Hamburger Roll <span class="amt">1</span></li>
+      <li>Dairyworks Cheddar Natural Slice <span class="amt">20 g</span></li>
+      <li>Onion, sliced <span class="amt">50 g</span></li>
+      <li>FroPro Fit Sauce Burger Mayo <span class="amt">20 g</span></li>
+      <li>Potato, cut into fries <span class="amt">300 g</span></li>
+    </ul>
+    <div class="section-label">Method</div>
+    <ol class="steps">
+      <li><span class="step-title">Prep the fries</span>Cut potato into even fry-shaped batons, pat dry.</li>
+      <li><span class="step-title">Air fry the fries</span>Air fry at 200°C, no oil, shaking the basket halfway, until golden and crisp.</li>
+      <li><span class="step-title">Form the patties</span>Divide beef mince into 2 loose balls, season with salt and pepper. Don't compact them.</li>
+      <li><span class="step-title">Smash and sear</span>Get a pan ripping hot. Drop the balls on, smash flat immediately, sear 90 seconds per side until crusted.</li>
+      <li><span class="step-title">Melt the cheese</span>Lay cheese over the patties in the last 20 seconds of cooking to melt.</li>
+      <li><span class="step-title">Build the burger</span>Toast the roll, stack patties, onion and Fit Sauce on the bun.</li>
+    </ol>
+  </div>
+
+  <!-- FRIES PREP -->
+  <div class="recipe" id="fries">
+    <div class="recipe-title">3-Day Fries Prep</div>
+    <div class="recipe-desc">Cold soak, parboil, dry — prep once, cook fresh each night. Covers 3 dinners at 300g potato/serve.</div>
+    <div class="note-box">This is prep only — no standalone macros. Potato is already counted in the Dinner card (300g per serve).</div>
+    <div class="section-label">Ingredients — Full Batch (3 servings)</div>
+    <ul class="ingredient-list">
+      <li>Potato <span class="amt">900 g</span></li>
+    </ul>
+    <div class="section-label">Method</div>
+    <ol class="steps">
+      <li><span class="step-title">Cut</span>Cut all 900g potato into fry-shaped batons.</li>
+      <li><span class="step-title">Rinse</span>Rinse under cold water to remove loose surface starch.</li>
+      <li><span class="step-title">Soak</span>Submerge fully in a container of fresh cold water, fridge, for at least 30 minutes.</li>
+      <li><span class="step-title">Parboil</span>Parboil in boiling water for 4-5 minutes, until the outside just starts to soften but the middle's still firm.</li>
+      <li><span class="step-title">Drain and steam-dry</span>Drain, then let sit in the colander a few minutes to steam-dry and rough up the edges slightly — this roughing is what crisps later.</li>
+      <li><span class="step-title">Pat dry</span>Pat fully dry with paper towel or a tea towel. This step matters more than the soak for getting a crisp result.</li>
+      <li><span class="step-title">Portion</span>Split into 3 containers, 300g each. Don't salt before storing — salt draws out moisture and makes them limp by day 3.</li>
+      <li><span class="step-title">Fridge</span>Fridge, unsalted, up to 3 days.</li>
+      <li><span class="step-title">Cook</span>Straight from the fridge into the air fryer at 200°C, no oil, shaking halfway, until golden and crisp. Salt after cooking.</li>
+    </ol>
+  </div>
+
+  <!-- SNACK -->
+  <div class="recipe" id="snack">
+    <div class="recipe-title">Pre-Training Banana Bread</div>
+    <div class="recipe-desc">Rice cooker method. Full-flavour loaf, not a protein bread. Batch of 12 slices, 1 slice/day.</div>
+    <div class="macro-bar">
+      <div class="macro-cell"><div class="val">285</div><div class="lbl">Kcal</div></div>
+      <div class="macro-cell"><div class="val">5g</div><div class="lbl">Protein</div></div>
+      <div class="macro-cell"><div class="val">11g</div><div class="lbl">Fat</div></div>
+      <div class="macro-cell"><div class="val">42g</div><div class="lbl">Carb</div></div>
+    </div>
+    <div class="section-label">Ingredients — Full Loaf (12 slices)</div>
+    <ul class="ingredient-list">
+      <li>Ripe banana, mashed <span class="amt">420 g</span></li>
+      <li>Butter, softened <span class="amt">140 g</span></li>
+      <li>Brown sugar <span class="amt">180 g</span></li>
+      <li>Large eggs <span class="amt">3</span></li>
+      <li>Plain flour <span class="amt">300 g</span></li>
+      <li>Baking soda <span class="amt">6 g</span></li>
+      <li>Salt <span class="amt">2 g</span></li>
+      <li>Vanilla extract <span class="amt">1.5 tbsp</span></li>
+    </ul>
+    <div class="section-label">Method — Rice Cooker</div>
+    <ol class="steps">
+      <li><span class="step-title">Grease the rice cooker bowl</span>Grease the rice cooker bowl thoroughly with butter or oil.</li>
+      <li><span class="step-title">Cream butter and sugar</span>Cream butter and brown sugar together until light and fluffy.</li>
+      <li><span class="step-title">Add eggs, banana, vanilla</span>Beat in eggs one at a time, then mix in mashed banana and vanilla.</li>
+      <li><span class="step-title">Fold in dry ingredients</span>Fold in flour, baking soda and salt until just combined — don't overmix.</li>
+      <li><span class="step-title">Pour batter in</span>Pour the batter into the greased rice cooker bowl and spread level.</li>
+      <li><span class="step-title">Run first cook cycle</span>Select the standard "Cook" setting (not quick-cook or brown rice). Let it run through to completion — it'll click over to "Warm" on its own.</li>
+      <li><span class="step-title">Run second cook cycle</span>Check the centre with a skewer. It almost always needs a second full cycle — press "Cook" again and repeat.</li>
+      <li><span class="step-title">Rest and slice</span>Once a skewer comes out clean, rest in the bowl 10 minutes, then carefully turn out onto a rack to cool fully before slicing into 12.</li>
+    </ol>
+    <div class="note-box">Rice cooker won't brown the top or crisp the base like an oven — texture is softer and steamier throughout, which is normal for this method. Buttery, sweet loaf built for taste over protein, banked as pre-training fuel for two-session days.</div>
+  </div>
+
+  <!-- TREAT (Phase 2 only) -->
+  <div class="recipe" id="treat" data-phase-only="2">
+    <div class="recipe-title">After-Dinner Treat</div>
+    <div class="recipe-desc">Phase 2 only. No prep — just portion and eat after dinner.</div>
+    <div class="macro-bar">
+      <div class="macro-cell"><div class="val">176</div><div class="lbl">Kcal</div></div>
+      <div class="macro-cell"><div class="val">2g</div><div class="lbl">Protein</div></div>
+      <div class="macro-cell"><div class="val">10g</div><div class="lbl">Fat</div></div>
+      <div class="macro-cell"><div class="val">19g</div><div class="lbl">Carb</div></div>
+    </div>
+    <div class="section-label">Item</div>
+    <ul class="ingredient-list">
+      <li>Bulla Choc Bar, vanilla <span class="amt">1 bar</span></li>
+    </ul>
+    <div class="note-box">Straight from the freezer after dinner, no prep needed. Alternatives considered: FroPro tub (~150 kcal/124g, ~13g protein — better protein return) and Lindt 70% dark chocolate (~158 kcal/25g — lower kcal, less indulgent). Swap in either if you want to rotate.</div>
+  </div>
+
+  <!-- SHOPPING LIST -->
+  <div class="recipe" id="shopping">
+    <div class="recipe-title">6-Day Shopping List</div>
+    <div class="recipe-desc">Covers all meals for a 6-day cycle. Tap an item to check it off — your progress is saved automatically. Banana bread batch makes 12 slices — one batch covers this cycle and the next.</div>
+
+    <div class="shop-section">
+      <div class="section-label">Produce</div>
+      <ul class="shop-list" id="shopProduce">
+        <li data-key="produce-capsicum"><span class="box"></span><span class="item-name">Capsicum<span class="item-note">lunch batch</span></span><span class="item-qty">300 g</span></li>
+        <li data-key="produce-onion"><span class="box"></span><span class="item-name">Onion<span class="item-note">300g lunch batch, 300g across 6 dinners</span></span><span class="item-qty">600 g</span></li>
+        <li data-key="produce-garlic"><span class="box"></span><span class="item-name">Garlic<span class="item-note">lunch batch</span></span><span class="item-qty">12 cloves</span></li>
+        <li data-key="produce-ginger"><span class="box"></span><span class="item-name">Ginger<span class="item-note">lunch batch</span></span><span class="item-qty">60 g</span></li>
+        <li data-key="produce-banana"><span class="box"></span><span class="item-name">Ripe banana<span class="item-note">banana bread batch</span></span><span class="item-qty">420 g</span></li>
+        <li data-key="produce-potato"><span class="box"></span><span class="item-name">Potato<span class="item-note">300g per dinner x6, two 3-day prep batches</span></span><span class="item-qty">1.8 kg</span></li>
+      </ul>
+    </div>
+
+    <div class="shop-section">
+      <div class="section-label">Meat</div>
+      <ul class="shop-list" id="shopMeat">
+        <li data-key="meat-mince-lunch"><span class="box"></span><span class="item-name">Lean beef mince (5% fat)<span class="item-note">lunch batch</span></span><span class="item-qty">1.5 kg</span></li>
+        <li data-key="meat-mince-dinner"><span class="box"></span><span class="item-name">Lean beef mince (5% fat)<span class="item-note">250g per dinner x6</span></span><span class="item-qty">1.5 kg</span></li>
+      </ul>
+    </div>
+
+    <div class="shop-section">
+      <div class="section-label">Bakery</div>
+      <ul class="shop-list" id="shopBakery">
+        <li data-key="bakery-rolls"><span class="box"></span><span class="item-name">Tip Top Hamburger Rolls<span class="item-note">exactly covers 6 dinners</span></span><span class="item-qty">1 pack of 6</span></li>
+      </ul>
+    </div>
+
+    <div class="shop-section">
+      <div class="section-label">Dairy</div>
+      <ul class="shop-list" id="shopDairy">
+        <li data-key="dairy-cottage-cheese"><span class="box"></span><span class="item-name">Low-fat cottage cheese<span class="item-note">oats batch</span></span><span class="item-qty">600 g</span></li>
+        <li data-key="dairy-milk"><span class="box"></span><span class="item-name">Skim milk<span class="item-note">oats batch</span></span><span class="item-qty">600 g</span></li>
+        <li data-key="dairy-cheese-slices"><span class="box"></span><span class="item-name">Dairyworks Cheddar Natural Slices<span class="item-note">pack has 32, need 6</span></span><span class="item-qty">1 pack</span></li>
+        <li data-key="dairy-butter"><span class="box"></span><span class="item-name">Butter<span class="item-note">banana bread batch</span></span><span class="item-qty">140 g</span></li>
+        <li data-key="dairy-eggs"><span class="box"></span><span class="item-name">Large eggs<span class="item-note">banana bread batch</span></span><span class="item-qty">3</span></li>
+        <li data-key="dairy-coffee"><span class="box"></span><span class="item-name">Hunt &amp; Brew Black Coffee</span><span class="item-qty">4</span></li>
+      </ul>
+    </div>
+
+    <div class="shop-section">
+      <div class="section-label">Frozen</div>
+      <ul class="shop-list" id="shopFrozen">
+        <li data-key="frozen-blueberries"><span class="box"></span><span class="item-name">Frozen blueberries<span class="item-note">oats batch</span></span><span class="item-qty">240 g</span></li>
+        <li data-key="frozen-bulla" data-phase-only="2"><span class="box"></span><span class="item-name">Bulla Choc Bars, vanilla<span class="item-note">8 pack, need 6 for the week</span></span><span class="item-qty">1 pack</span></li>
+      </ul>
+    </div>
+
+    <div class="shop-section">
+      <div class="section-label">Aisles</div>
+      <ul class="shop-list" id="shopAisles">
+        <li data-key="aisle-rice"><span class="box"></span><span class="item-name">Basmati rice, dry<span class="item-note">lunch batch</span></span><span class="item-qty">360 g</span></li>
+        <li data-key="aisle-soy"><span class="box"></span><span class="item-name">Soy sauce</span><span class="item-qty">6 tbsp</span></li>
+        <li data-key="aisle-sesame-oil"><span class="box"></span><span class="item-name">Sesame oil</span><span class="item-qty">30 g</span></li>
+        <li data-key="aisle-gochujang"><span class="box"></span><span class="item-name">Gochujang</span><span class="item-qty">6 tbsp</span></li>
+        <li data-key="aisle-mirin"><span class="box"></span><span class="item-name">Mirin</span><span class="item-qty">6 tbsp</span></li>
+        <li data-key="aisle-fitsauce"><span class="box"></span><span class="item-name">FroPro Fit Sauce Burger Mayo<span class="item-note">need 120g of 250g pouch</span></span><span class="item-qty">1 pouch</span></li>
+        <li data-key="aisle-protein"><span class="box"></span><span class="item-name">Ghost Whey Protein, Cookies &amp; Cream</span><span class="item-qty">6 scoops</span></li>
+        <li data-key="aisle-honey"><span class="box"></span><span class="item-name">Honey</span><span class="item-qty">12 tbsp</span></li>
+        <li data-key="aisle-marie"><span class="box"></span><span class="item-name">Arnott's Marie biscuits</span><span class="item-qty">96 g</span></li>
+        <li data-key="aisle-brown-sugar"><span class="box"></span><span class="item-name">Brown sugar<span class="item-note">banana bread batch</span></span><span class="item-qty">180 g</span></li>
+        <li data-key="aisle-flour"><span class="box"></span><span class="item-name">Plain flour<span class="item-note">banana bread batch</span></span><span class="item-qty">300 g</span></li>
+        <li data-key="aisle-baking-soda"><span class="box"></span><span class="item-name">Baking soda<span class="item-note">banana bread batch</span></span><span class="item-qty">6 g</span></li>
+        <li data-key="aisle-salt"><span class="box"></span><span class="item-name">Salt<span class="item-note">banana bread batch</span></span><span class="item-qty">2 g</span></li>
+        <li data-key="aisle-vanilla"><span class="box"></span><span class="item-name">Vanilla extract<span class="item-note">banana bread batch</span></span><span class="item-qty">1.5 tbsp</span></li>
+        <li data-key="aisle-soft-drink"><span class="box"></span><span class="item-name">Sugar free soft drink</span><span class="item-qty">-</span></li>
+      </ul>
+    </div>
+
+    <div class="note-box" id="shoppingNote">Daily target (food only): ~2,644 kcal | ~191g protein | ~61g fat | ~322g carb. Add your coffee on top separately.</div>
+  </div>
+
+  <!-- BACKUP -->
+  <div class="recipe" id="backup">
+    <div class="recipe-title">Backup &amp; Restore</div>
+    <div class="recipe-desc">Your shopping list check-marks are saved in this browser only (localStorage). Export a backup before switching devices or clearing browser data, and Import to restore it.</div>
+
+    <div class="section-label">Export</div>
+    <button class="backup-btn primary" id="exportBtn">Download Backup File</button>
+    <button class="backup-btn" id="exportShowBtn">Show as Text</button>
+    <textarea class="backup-area" id="exportArea" style="display:none;" readonly></textarea>
+    <div class="backup-status" id="exportStatus"></div>
+
+    <div class="section-label" style="margin-top:28px;">Import</div>
+    <div class="recipe-desc" style="margin-bottom:10px;">Paste a previously exported backup below, then tap Import.</div>
+    <textarea class="backup-area" id="importArea" placeholder="Paste backup JSON here..."></textarea>
+    <button class="backup-btn primary" id="importBtn" style="margin-top:10px;">Import Backup</button>
+    <div class="backup-status" id="importStatus"></div>
+
+    <div class="note-box">This app stores data only in this browser, on this device. It never leaves your phone/computer unless you export it yourself.</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var PREFIX = "fieldRations_";
+  var badge = document.getElementById("saveBadge");
+  var storageOk = true;
+
+  function setBadge(ok) {
+    storageOk = ok;
+    if (ok) {
+      badge.textContent = "SAVED";
+      badge.className = "save-badge ok";
+    } else {
+      badge.textContent = "NOT SAVING";
+      badge.className = "save-badge bad";
+    }
+  }
+
+  function testStorage() {
+    try {
+      var testKey = PREFIX + "__test__";
+      localStorage.setItem(testKey, "1");
+      var v = localStorage.getItem(testKey);
+      localStorage.removeItem(testKey);
+      setBadge(v === "1");
+    } catch (e) {
+      setBadge(false);
+    }
+  }
+
+  function saveLocal(key, value) {
+    try {
+      localStorage.setItem(PREFIX + key, JSON.stringify(value));
+      setBadge(true);
+      return true;
+    } catch (e) {
+      setBadge(false);
+      return false;
+    }
+  }
+
+  function loadLocal(key, fallback) {
+    try {
+      var v = localStorage.getItem(PREFIX + key);
+      return v !== null ? JSON.parse(v) : fallback;
+    } catch (e) {
+      setBadge(false);
+      return fallback;
+    }
+  }
+
+  testStorage();
+
+  // Phase selector
+  var PHASE_KEY = "selectedPhase";
+  var currentPhase = loadLocal(PHASE_KEY, "1");
+  if (currentPhase !== "1" && currentPhase !== "2") currentPhase = "1";
+
+  var PHASE_DATA = {
+    "1": {
+      headerSub: "2,800 kcal target (food only \u2014 coffee tracked separately) \u00b7 6 days on, Sunday fast + cheat meal",
+      kcal: "2,644", protein: "191", fat: "61", carb: "322",
+      shopNote: "Daily target (food only): ~2,644 kcal | ~191g protein | ~61g fat | ~322g carb. Add your coffee on top separately."
+    },
+    "2": {
+      headerSub: "2,950 kcal target (food only \u2014 coffee tracked separately) \u00b7 6 days on, Sunday fast + cheat meal",
+      kcal: "2,820", protein: "193", fat: "71", carb: "341",
+      shopNote: "Daily target (food only): ~2,820 kcal | ~193g protein | ~71g fat | ~341g carb. Add your coffee on top separately."
+    }
+  };
+
+  function applyPhase(phase) {
+    currentPhase = phase;
+    var d = PHASE_DATA[phase];
+
+    document.getElementById("headerSub").textContent = d.headerSub;
+    document.getElementById("totKcal").textContent = d.kcal;
+    document.getElementById("totProtein").textContent = d.protein;
+    document.getElementById("totFat").textContent = d.fat;
+    document.getElementById("totCarb").textContent = d.carb;
+    document.getElementById("shoppingNote").textContent = d.shopNote;
+
+    document.getElementById("phase1Btn").classList.toggle("active", phase === "1");
+    document.getElementById("phase2Btn").classList.toggle("active", phase === "2");
+
+    // Show/hide anything marked as belonging to a specific phase
+    document.querySelectorAll("[data-phase-only]").forEach(function(el) {
+      var show = el.dataset.phaseOnly === phase;
+      el.style.display = show ? "" : "none";
+    });
+
+    // If the Treat tab was active but we've switched away from Phase 2, fall back to Breakfast
+    if (phase !== "2") {
+      var treatTab = document.getElementById("treatTab");
+      if (treatTab.classList.contains("active")) {
+        treatTab.classList.remove("active");
+        document.getElementById("treat").classList.remove("active");
+        var breakfastTab = document.querySelector('.tab[data-target="breakfast"]');
+        breakfastTab.classList.add("active");
+        document.getElementById("breakfast").classList.add("active");
+      }
+    }
+  }
+
+  document.getElementById("phase1Btn").addEventListener("click", function() {
+    saveLocal(PHASE_KEY, "1");
+    applyPhase("1");
+  });
+  document.getElementById("phase2Btn").addEventListener("click", function() {
+    saveLocal(PHASE_KEY, "2");
+    applyPhase("2");
+  });
+
+  applyPhase(currentPhase);
+
+  // Tabs
+  var tabs = document.querySelectorAll(".tab");
+  var recipes = document.querySelectorAll(".recipe");
+  tabs.forEach(function(tab) {
+    tab.addEventListener("click", function() {
+      tabs.forEach(function(t) { t.classList.remove("active"); });
+      recipes.forEach(function(r) { r.classList.remove("active"); });
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.target).classList.add("active");
+    });
+  });
+
+  // Shopping list checklist persistence
+  var CHECKLIST_KEY = "shoppingChecklist";
+  var checklist = loadLocal(CHECKLIST_KEY, {});
+
+  var shopItems = document.querySelectorAll(".shop-list li");
+  shopItems.forEach(function(li) {
+    var key = li.dataset.key;
+    if (checklist[key]) {
+      li.classList.add("checked");
+    }
+    li.addEventListener("click", function() {
+      var isChecked = li.classList.toggle("checked");
+      checklist[key] = isChecked;
+      saveLocal(CHECKLIST_KEY, checklist);
+    });
+  });
+
+  // Backup: Export
+  function gatherBackup() {
+    var data = {};
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(PREFIX) === 0) {
+          data[k.substring(PREFIX.length)] = localStorage.getItem(k);
+        }
+      }
+    } catch (e) {
+      setBadge(false);
+    }
+    return {
+      app: "field-rations",
+      exportedAt: new Date().toISOString(),
+      data: data
+    };
+  }
+
+  document.getElementById("exportBtn").addEventListener("click", function() {
+    var backup = gatherBackup();
+    var json = JSON.stringify(backup, null, 2);
+    try {
+      var blob = new Blob([json], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      var dateStr = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = "field-rations-backup-" + dateStr + ".json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      document.getElementById("exportStatus").textContent = "Backup downloaded.";
+      document.getElementById("exportStatus").className = "backup-status ok";
+    } catch (e) {
+      var area = document.getElementById("exportArea");
+      area.style.display = "block";
+      area.value = json;
+      document.getElementById("exportStatus").textContent = "Download failed — copy the text below instead.";
+      document.getElementById("exportStatus").className = "backup-status bad";
+    }
+  });
+
+  document.getElementById("exportShowBtn").addEventListener("click", function() {
+    var backup = gatherBackup();
+    var area = document.getElementById("exportArea");
+    area.style.display = area.style.display === "none" ? "block" : "none";
+    area.value = JSON.stringify(backup, null, 2);
+  });
+
+  // Backup: Import
+  document.getElementById("importBtn").addEventListener("click", function() {
+    var raw = document.getElementById("importArea").value.trim();
+    var statusEl = document.getElementById("importStatus");
+    if (!raw) {
+      statusEl.textContent = "Paste a backup first.";
+      statusEl.className = "backup-status bad";
+      return;
+    }
+    try {
+      var parsed = JSON.parse(raw);
+      var data = parsed && parsed.data ? parsed.data : parsed;
+      var count = 0;
+      for (var key in data) {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+          localStorage.setItem(PREFIX + key, data[key]);
+          count++;
+        }
+      }
+      statusEl.textContent = "Imported " + count + " item(s). Reloading...";
+      statusEl.className = "backup-status ok";
+      setTimeout(function() { window.location.reload(); }, 900);
+    } catch (e) {
+      statusEl.textContent = "Couldn't read that backup — check it's valid JSON.";
+      statusEl.className = "backup-status bad";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
